@@ -1,0 +1,144 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background:url(https://img.freepik.com/premium-photo/dark-background-with-picture-black-background-with-line-squares_994023-345926.jpg?w=360);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Header Section */
+header {
+    height: 5vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color:transparent;
+    box-shadow: 7px 7px 10px black; ;
+    color: white;
+
+}
+header .logo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo img {
+    height: 40px;
+}
+/* Menubar Section */
+header .nav {
+    height: 80%;
+}
+
+header .nav ul {
+    display: flex;
+    justify-content: center;
+}
+
+header .nav li {
+    margin: 0 20px;
+}
+
+header .nav a {
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+}
+
+header .nav a:hover {
+    background-color: rgb(231, 229, 229);
+    color: rgb(54, 54, 54);
+    border-radius: 5px;
+}
+
+header .social-links a {
+    margin-left: 15px;
+    color: white;
+}
+header .social-links a:hover{
+    color: #696969;
+}
+
+/* Main Content Section */
+.container {
+    height: 80vh;
+    display: flex;
+    margin: 20px;
+}
+
+.sidebar {
+    width: 15%;
+    background-color: transparent;
+    color: white;
+    box-shadow: 3px 3px 9px rgb(253, 253, 253);
+    padding: 15px;
+    margin-right: 20px;
+}
+
+.sidebar h2 {
+    font-size: 18px;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+/* Main Content Area */
+.main-content {
+    width: 75%;
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.main-content .box {
+    width: 25%;
+    box-shadow: 7px 7px 10px rgb(122, 122, 122); ;
+    margin-bottom: 20px;
+    padding: 20px;
+    text-align: center;
+    color: aliceblue;
+}
+.main-content .box h3{
+    font-weight:bolder;
+}
+.main-content .box .inner-box{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    text-align: left;
+}
+.main-content .box .inner-box .img {
+   width: 200px;
+   height: 200px;
+   box-shadow: 5px 5px 10px rgb(253, 253, 253);
+   border-radius: 10px;
+}
+
+/* Footer Section */
+footer {
+    background-color: transparent;
+    border:1px solid #696969;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    width: 100%;
+    bottom: 0;
+}
