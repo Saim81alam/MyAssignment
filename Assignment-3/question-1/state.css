@@ -1,0 +1,16 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+#states-list {
+    text-align: left;
+    list-style:decimal;
+    display: grid;
+    direction: ltr;
+    grid-template-columns: repeat(3,1fr);
+}
+
+#states-list li {
+    margin-bottom: 10px;
+}
