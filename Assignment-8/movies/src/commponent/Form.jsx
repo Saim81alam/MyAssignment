@@ -4,77 +4,145 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 function Form() {
   const [btnclick, setBtnClick] = useState(false);
+  const [showBtn, setShowBtn] = useState(false);
   const [randomNumber, setRandomNumber] = useState();
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-  const [mob, setMob] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const { title, image } = location.state || {};
+  const [formData, setFormData] = useState({
+    fullname: "",
+    email: "",
+    mob: "",
+  });
+  const [inputValue, setInputValue] = useState({
+    fullname: "",
+    email: "",
+    mob: "",
+  });
 
-  function handleClick() {
-    setRandomNumber(Math.floor(1000000000 + Math.random() * 9000000000));
-    if (fullName == "" || email == "" || mob == "") {
-      alert("palese fill all details");
-    } else {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setInputValue({
+      ...inputValue,
+      [name]: value,
+    });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const newrandomNumber = Math.floor(1000000000 + Math.random() * 9000000000);
+    setRandomNumber(newrandomNumber);
+
+    if (
+      inputValue.fullname != "" &&
+      inputValue.email != "" &&
+      inputValue.mob != ""
+    ) {
+      setFormData({
+        fullname: inputValue.fullname,
+        email: inputValue.email,
+        mob: inputValue.mob,
+      });
       setBtnClick(!btnclick);
-    }
-  }
+      alert(`Congratulation Your ticket Number is ${newrandomNumber}`);
+    } else alert("palese fill all details");
+
+    setInputValue({
+      fullname: "",
+      email: "",
+      mob: "",
+    });
+  };
+
+  const showTicket = (e) => {
+    e.preventDefault();
+    setShowBtn(!showBtn);
+    e.target.innerText = showBtn
+      ? "SHOW TICKET"
+      : "TAKE A PICTURE OF THIS OR SCREENSHOT";
+  };
+
+  console.log(formData);
+
   return (
     <>
-      <div
-        className="card container p-3 text-start mb-2"
-        style={{ width: "22rem", height: "20rem" }}
-      >
-        <h3 className="m-auto">Fill All Details</h3>
-        <div className="mb-3 mt-2 d-flex flex-row justify-content-between">
-          <label htmlFor="userName" className="form-label">
-            Full Name
-          </label>
-          <input
-            type="text"
-            id="userName"
-            onChange={(e) => setFullName(e.target.value)}
-          />
-        </div>
-        <div className="mb-3 mt-2 d-flex flex-row justify-content-between">
-          <label htmlFor="exampleInputEmail1" className="form-label">
-            Email address
-          </label>
-          <input
-            type="email"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="mb-3 mt-2 d-flex flex-row justify-content-between">
-          <label htmlFor="mob" className="form-label">
-            Mobile no :
-          </label>
-          <input type="tel" id="mob" onChange={(e) => setMob(e.target.value)} />
-        </div>
-        <button
-          type="submit"
-          className="btn btn-primary m-auto mt-2"
-          style={{ width: "7rem" }}
-          onClick={handleClick}
+      {!btnclick && (
+        <div
+          className="card container p-3 text-start mb-2 d-flex "
+          style={{ width: "22rem", height: "20rem" }}
         >
-          Submit
+          <h3 className="m-auto">Fill All Details</h3>
+          <form
+            onSubmit={handleSubmit}
+            className="d-flex flex-column justify-content-center"
+          >
+            <div className="mb-3 mt-2 d-flex flex-row justify-content-between">
+              <label htmlFor="fullname" className="form-label">
+                Full Name:
+              </label>
+              <input
+                type="text"
+                id="fullname"
+                name="fullname"
+                value={inputValue.fullname}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="mb-3 mt-2 d-flex flex-row justify-content-between ">
+              <label htmlFor="email" className="form-label">
+                Email address:
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={inputValue.email}
+                aria-describedby="emailHelp"
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="mb-3 mt-2 d-flex flex-row justify-content-between">
+              <label htmlFor="mob" className="form-label">
+                Mobile no :
+              </label>
+              <input
+                type="tel"
+                id="mob"
+                name="mob"
+                maxLength="10"
+                value={inputValue.mob}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="d-flex justify-content-around">
+              <button
+                type="submit"
+                className="btn btn-primary"
+                style={{ width: "7rem" }}
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {btnclick && (
+        <button type="text" className="btn btn-success" onClick={showTicket}>
+          SHOW TICKET
         </button>
-      </div>
+      )}
 
       {/* ticket confrom */}
 
-      {btnclick && (
+      {showBtn && (
         <div
-          className="card mb-3"
+          className="card mb-3 mt-3"
           style={{ width: "30rem", height: "15rem:" }}
           id="ticket"
         >
           <div className="row g-0">
             <div className="col-md-4 p-2 rounded">
-              {/* <img src={image} className="img-fluid rounded-start" alt="..." /> */}
               <div
                 className="mt-4 mb-2"
                 style={{
@@ -95,31 +163,32 @@ function Form() {
                 </p>
                 <p>
                   <span className="fw-bold">FULL Name : </span>
-                  {fullName}
+                  {formData.fullname}
                 </p>
                 <p>
                   <span className="fw-bold">Email : </span>
-                  {email}
+                  {formData.email}
                 </p>
                 <p>
                   <span className="fw-bold">MOB : </span>
-                  {mob}
+                  {formData.mob}
                 </p>
               </div>
-              <button
-                type="back"
-                className="btn btn-danger m-auto mb-1"
-                style={{ width: "10rem" }}
-                onClick={() => {
-                  navigate("/");
-                }}
-              >
-                Go back to Home
-              </button>
             </div>
           </div>
         </div>
       )}
+
+      <button
+        type="back"
+        className="btn btn-danger ms-2"
+        style={{ width: "10rem" }}
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        Go back to Home
+      </button>
     </>
   );
 }
